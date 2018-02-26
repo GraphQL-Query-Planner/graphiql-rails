@@ -1,3 +1,6 @@
 [submodule "packages/graphiql"]
 	path = packages/graphiql
 	url = https://github.com/GraphQL-Query-Planner/graphiql.git
+[submodule "packages/graphiql-plugins"]
+	path = packages/graphiql-plugins
+	url = https://github.com/GraphQL-Query-Planner/graphiql-plugins.git

@@ -42,7 +42,6 @@ task :update_graphiql do
     sh("yarn install")
     sh("yarn run build")
 
-    # FileUtils.cd("./node_modules/graphiql") do
     new_version = npm_version("./package.json")
     new_js_versions["graphiql"] = new_version
     new_css_versions["graphiql"] = new_version
@@ -74,4 +73,25 @@ task :update_graphiql do
   puts "Updating manifests"
   replace_versions(js_manifest_path, new_js_versions)
   replace_versions(css_manifest_path, new_css_versions)
+end
+
+
+task :update_graphiql_plugins do
+  require "fileutils"
+  require "json"
+
+  package = "./packages/graphiql-plugins"
+  assets_dir = "./app/assets/javascripts/graphiql-plugins"
+  rails_assets = "#{assets_dir}/main.js"
+
+  FileUtils.mkdir_p(assets_dir)
+  puts "Created directory: #{assets_dir}"
+
+  if File.exist?(rails_assets)
+    puts "Removing #{rails_assets}"
+    FileUtils.rm(rails_assets)
+  end
+
+  puts "Copying graphiql-plugins"
+  FileUtils.cp("#{package}/dist/main.js", rails_assets)
 end
