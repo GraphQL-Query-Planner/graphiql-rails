@@ -2,9 +2,9 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
 	(factory((global.GraphiQLPlugins = {}),global.React));
-}(this, (function (exports,React) { 'use strict';
+}(this, (function (exports,_react) { 'use strict';
 
-React = React && React.hasOwnProperty('default') ? React['default'] : React;
+_react = _react && _react.hasOwnProperty('default') ? _react['default'] : _react;
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
@@ -74,7 +74,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React);
+var _react2 = _interopRequireDefault(_react);
 
 
 
@@ -460,7 +460,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React);
+var _react2 = _interopRequireDefault(_react);
 
 
 
@@ -1217,7 +1217,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React);
+var _react2 = _interopRequireDefault(_react);
 
 
 
@@ -1423,7 +1423,7 @@ var ReactTablePagination = function (_Component) {
   }]);
 
   return ReactTablePagination;
-}(React.Component);
+}(_react.Component);
 
 exports.default = ReactTablePagination;
 
@@ -1441,7 +1441,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React);
+var _react2 = _interopRequireDefault(_react);
 
 
 
@@ -2837,7 +2837,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React);
+var _react2 = _interopRequireDefault(_react);
 
 
 
@@ -3648,7 +3648,7 @@ var ReactTable = function (_Methods) {
   }]);
 
   return ReactTable;
-}((0, _methods2.default)((0, _lifecycle2.default)(React.Component)));
+}((0, _methods2.default)((0, _lifecycle2.default)(_react.Component)));
 
 ReactTable.propTypes = _propTypes2.default;
 ReactTable.defaultProps = _defaultProps2.default;
