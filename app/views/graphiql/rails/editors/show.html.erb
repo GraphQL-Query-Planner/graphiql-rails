@@ -77,7 +77,7 @@
     <% end %>
 
     const {GraphiQLPlugins} = window;
-    const {Plugin, viewer, formatted} = GraphiQLPlugins;
+    const {Plugin, resolverDetails, queryDetails} = GraphiQLPlugins;
 
     // Render <GraphiQL /> into the body.
     ReactDOM.render(
@@ -92,12 +92,12 @@
         <% end %>
         plugins: [
           {
-            title: 'Raw',
-            plugin: <Plugin render={viewer} />
+            title: 'Resolver Details',
+            plugin: <Plugin render={resolverDetails} />
           },
           {
-            title: 'Queries',
-            plugin: <Plugin render={formatted} />
+            title: 'Query Details',
+            plugin: <Plugin render={queryDetails} />
           }
         ]
       }),

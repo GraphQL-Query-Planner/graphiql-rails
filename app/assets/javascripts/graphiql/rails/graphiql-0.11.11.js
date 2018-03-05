@@ -2913,18 +2913,29 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
 
     _this.state = {
       pluginsPaneOpen: true,
-      pluginsPaneHeight: 29
+      pluginsPaneHeight: _this.OFFEST
     };
+    _this.OFFEST = 29;
+    _this.OFFSET_HEIGHT = _this.OFFEST + 'px';
     _this.handleResizeStart = _this.handleResizeStart.bind(_this);
     return _this;
   }
 
   _createClass(PluginsPane, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.hidePluginsPane();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var style = {
-        height: this.state.pluginsPaneOpen ? this.state.pluginsPaneHeight : '29px'
+        height: this.state.pluginsPaneOpen ? this.state.pluginsPaneHeight : this.OFFSET_HEIGHT
       };
+
+      if (this.state.pluginsPaneOpen === false) {
+        this.hidePluginsPane();
+      }
 
       return _react2.default.createElement(
         'div',
@@ -3006,6 +3017,12 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
           _this3.setState({ pluginsPaneOpen: !wasOpen });
         }
 
+        if (wasOpen && !didMove) {
+          _this3.hidePluginsPane();
+        } else {
+          _this3.showPluginsPane();
+        }
+
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', _onMouseUp);
         onMouseMove = null;
@@ -3021,23 +3038,41 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
 
         var editorBar = document.querySelector('.editorBar');
         var topSize = moveEvent.clientY - getTop(editorBar) - offset;
-        var bottomSize = editorBar.clientHeight - topSize - 30;
+        var bottomSize = editorBar.clientHeight - topSize - _this3.OFFEST;
 
         if (bottomSize < 60) {
           _this3.setState({
             pluginsPaneOpen: false,
             pluginsPaneHeight: hadHeight
           });
+          _this3.hidePluginsPane();
         } else {
           _this3.setState({
             pluginsPaneOpen: true,
             pluginsPaneHeight: bottomSize
           });
+          _this3.showPluginsPane();
         }
       };
 
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', _onMouseUp);
+    }
+  }, {
+    key: 'hidePluginsPane',
+    value: function hidePluginsPane() {
+      var reactTabs = document.querySelector('div.plugins-pane div.react-tabs');
+      if (reactTabs) {
+        reactTabs.style.display = 'none';
+      }
+    }
+  }, {
+    key: 'showPluginsPane',
+    value: function showPluginsPane() {
+      var reactTabs = document.querySelector('div.plugins-pane div.react-tabs');
+      if (reactTabs) {
+        reactTabs.style.display = 'block';
+      }
     }
   }]);
 
@@ -20298,7 +20333,7 @@ module.exports={"Aacute":"\u00C1","aacute":"\u00E1","Abreve":"\u0102","abreve":"
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
@@ -20480,7 +20515,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                                                                                                                                            *  This source code is licensed under the license found in the
                                                                                                                                                            *  LICENSE file in the root directory of this source tree.
                                                                                                                                                            *
-                                                                                                                                                           *
+                                                                                                                                                           *  
                                                                                                                                                            */
 
 var GraphQLLanguageService = exports.GraphQLLanguageService = function () {
@@ -20729,7 +20764,7 @@ function getDefinitionState(tokenState) {
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 function getFieldDef(schema, type, fieldName) {
@@ -20889,7 +20924,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *
+                                                                                                                                                                                                                                                                   *  
                                                                                                                                                                                                                                                                    */
 
 exports.getAutocompleteSuggestions = getAutocompleteSuggestions;
@@ -21435,7 +21470,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 var LANGUAGE = exports.LANGUAGE = 'GraphQL';
@@ -21543,7 +21578,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 var SEVERITY = exports.SEVERITY = {
@@ -21667,7 +21702,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *
+                                                                                                                                                                                                                                                                   *  
                                                                                                                                                                                                                                                                    */
 
 exports.getOutline = getOutline;
@@ -22041,7 +22076,7 @@ var CharacterStream = function () {
       *  This source code is licensed under the license found in the
       *  LICENSE file in the root directory of this source tree.
       *
-      *
+      *  
       */
 
 /**
@@ -22082,7 +22117,7 @@ function opt(ofRule) {
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 // These functions help build matching rules for ParseRules.
@@ -22142,7 +22177,7 @@ var _RuleHelpers = require('./RuleHelpers');
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 var isIgnored = exports.isIgnored = function isIgnored(ch) {
@@ -22431,7 +22466,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                                                                                                                                                                                                                                                                    *  This source code is licensed under the license found in the
                                                                                                                                                                                                                                                                    *  LICENSE file in the root directory of this source tree.
                                                                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                                                                   *
+                                                                                                                                                                                                                                                                   *  
                                                                                                                                                                                                                                                                    */
 
 /**
@@ -22732,7 +22767,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
  *
- *
+ *  
  */
 
 var Range = exports.Range = function () {
@@ -22843,7 +22878,7 @@ function getASTNodeAtPosition(query, ast, point) {
    *  This source code is licensed under the license found in the
    *  LICENSE file in the root directory of this source tree.
    *
-   *
+   *  
    */
 
 function pointToOffset(text, point) {
@@ -22955,7 +22990,7 @@ function validateWithCustomRules(schema, ast, customRules) {
    *  This source code is licensed under the license found in the
    *  LICENSE file in the root directory of this source tree.
    *
-   *
+   *  
    */
 },{"graphql":97,"graphql/validation/rules/NoUnusedFragments":154}],88:[function(require,module,exports){
 'use strict';
@@ -28008,7 +28043,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                                                                                                                                                                                                                    * LICENSE file in the root directory of this source tree. An additional grant
                                                                                                                                                                                                                    * of patent rights can be found in the PATENTS file in the same directory.
                                                                                                                                                                                                                    *
-                                                                                                                                                                                                                   *
+                                                                                                                                                                                                                   * 
                                                                                                                                                                                                                    */
 
 /**
@@ -28110,7 +28145,7 @@ function subscribe(argsOrSchema, document, rootValue, contextValue, variableValu
    * LICENSE file in the root directory of this source tree. An additional grant
    * of patent rights can be found in the PATENTS file in the same directory.
    *
-   *
+   * 
    */
 
 function subscribeImpl(schema, document, rootValue, contextValue, variableValues, operationName, fieldResolver, subscribeFieldResolver) {
@@ -47139,7 +47174,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
