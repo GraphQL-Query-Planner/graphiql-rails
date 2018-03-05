@@ -3,13 +3,19 @@
   <head>
     <title>GraphiQL</title>
     <%= stylesheet_link_tag("graphiql/rails/application") %>
+    <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css">
+
     <%= javascript_include_tag("graphiql/rails/application") %>
+    <%= javascript_include_tag("graphiql-plugins/application") %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+
   </head>
   <body>
     <div id="graphiql-container">
       Loading...
     </div>
-    <script>
+    <script type="text/babel">
     var parameters = {};
 
     <% if GraphiQL::Rails.config.query_params %>
@@ -70,6 +76,9 @@
     var defaultQuery = undefined
     <% end %>
 
+    const {GraphiQLPlugins} = window;
+    const {Plugin, resolverDetails, queryDetails} = GraphiQLPlugins;
+
     // Render <GraphiQL /> into the body.
     ReactDOM.render(
       React.createElement(GraphiQL, {
@@ -81,7 +90,16 @@
         onEditQuery: onEditQuery,
         onEditVariables: onEditVariables
         <% end %>
-        enableAnalysisViewer: true
+        plugins: [
+          {
+            title: 'Resolver Details',
+            plugin: <Plugin render={resolverDetails} />
+          },
+          {
+            title: 'Query Details',
+            plugin: <Plugin render={queryDetails} />
+          }
+        ]
       }),
       document.getElementById("graphiql-container")
     );
