@@ -3846,7 +3846,14 @@ var resolverDetails = function resolverDetails(results) {
         }
       }, {
         Header: 'Path',
-        accessor: 'path'
+        accessor: 'path',
+        Cell: function Cell(props) {
+          return React.createElement(
+            'span',
+            null,
+            props.original.path.join(", ")
+          );
+        }
       }, {
         Header: 'Adapter',
         accessor: 'adapter'
