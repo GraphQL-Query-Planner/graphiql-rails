@@ -77,7 +77,7 @@
     <% end %>
 
     const {GraphiQLPlugins} = window;
-    const {Plugin, resolverDetails, queryDetails} = GraphiQLPlugins;
+    const {Plugin, resolverDetails, queryDetails, apolloTracing} = GraphiQLPlugins;
 
     // Render <GraphiQL /> into the body.
     ReactDOM.render(
@@ -98,6 +98,10 @@
           {
             title: 'Query Details',
             plugin: <Plugin render={queryDetails} />
+          },
+          {
+            title: 'Timing Details',
+            plugin: <Plugin render={apolloTracing} />
           }
         ]
       }),
