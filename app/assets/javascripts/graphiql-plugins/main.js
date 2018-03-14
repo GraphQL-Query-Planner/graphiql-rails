@@ -26622,10 +26622,12 @@ var apolloTracing = function apolloTracing(results) {
       datasets: [{
         data: startData,
         backgroundColor: "rgba(63,103,126,0)",
-        hoverBackgroundColor: "rgba(50,90,100,0)"
+        hoverBackgroundColor: "rgba(50,90,100,0)",
+        label: "Start (ms)"
       }, {
         data: durationData,
-        backgroundColor: "#D64292"
+        backgroundColor: "#D64292",
+        label: "Duration (ms)"
       }]
     };
 
@@ -26635,18 +26637,18 @@ var apolloTracing = function apolloTracing(results) {
       },
       scales: {
         xAxes: [{
-          label: "Duration",
+          display: true,
           ticks: {
             beginAtZero: true,
-            fontFamily: "'Open Sans Bold', sans-serif",
-            fontSize: 14
+            fontSize: 12
           },
           scaleLabel: {
-            display: false
+            display: true,
+            labelString: "Duration"
           },
-          gridLines: {},
           stacked: true,
-          barThickness: 20
+          barThickness: 10,
+          weight: 5
         }],
         yAxes: [{
           gridLines: {
@@ -26656,11 +26658,15 @@ var apolloTracing = function apolloTracing(results) {
             zeroLineWidth: 0
           },
           ticks: {
-            fontFamily: "'Open Sans Bold', sans-serif",
             fontSize: 12
           },
+          scaleLabel: {
+            display: true,
+            labelString: "Resolver Path"
+          },
+          weight: 5,
           stacked: true,
-          barThickness: 20
+          barThickness: 10
         }]
       },
       legend: {
