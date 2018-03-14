@@ -2913,10 +2913,10 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
 
     _this.state = {
       pluginsPaneOpen: true,
-      pluginsPaneHeight: _this.OFFEST
+      pluginsPaneHeight: _this.OFFSET
     };
-    _this.OFFEST = 29;
-    _this.OFFSET_HEIGHT = _this.OFFEST + 'px';
+    _this.OFFSET = 29;
+    _this.OFFSET_HEIGHT = _this.OFFSET + 'px';
     _this.handleResizeStart = _this.handleResizeStart.bind(_this);
     return _this;
   }
@@ -2935,6 +2935,14 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
 
       if (this.state.pluginsPaneOpen === false) {
         this.hidePluginsPane();
+      }
+
+      // Fix cutoff/overflow issue :/
+      var pluginTabPanel = document.querySelector('div.react-tabs__tab-panel--selected');
+      var updateHeight = style.height && style.height !== this.OFFSET_HEIGHT;
+      if (pluginTabPanel && updateHeight) {
+        var height = style.height - 100;
+        pluginTabPanel.setAttribute('style', 'height:' + height + 'px !important');
       }
 
       return _react2.default.createElement(
@@ -3038,7 +3046,7 @@ var PluginsPane = exports.PluginsPane = function (_React$Component) {
 
         var editorBar = document.querySelector('.editorBar');
         var topSize = moveEvent.clientY - getTop(editorBar) - offset;
-        var bottomSize = editorBar.clientHeight - topSize - _this3.OFFEST;
+        var bottomSize = editorBar.clientHeight - topSize - _this3.OFFSET;
 
         if (bottomSize < 60) {
           _this3.setState({
