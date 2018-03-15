@@ -26450,7 +26450,18 @@ var resolverDetails = function resolverDetails(results) {
   if (!results) {
     return;
   }
-  var resultsObj = JSON.parse(results);
+
+  var resultsObj = void 0;
+  try {
+    resultsObj = JSON.parse(results);
+  } catch (e) {
+    throw new Error('Error found in query');
+  }
+
+  if (resultsObj.errors) {
+    return 'Error found in query';
+  }
+
   if (resultsObj) {
     var analyzer = resultsObj.extensions && resultsObj.extensions.analyzer;
     var resolvers = analyzer.execution.resolvers;
@@ -26514,15 +26525,64 @@ var queryDetails = function queryDetails(results) {
   if (!results) {
     return;
   }
-  var resultsObj = JSON.parse(results);
+
+  var resultsObj = void 0;
+  try {
+    resultsObj = JSON.parse(results);
+  } catch (e) {
+    throw new Error('Error found in query');
+  }
+
+  if (resultsObj.errors) {
+    return 'Error found in query';
+  }
+
   if (resultsObj) {
+
     var analyzer = resultsObj.extensions && resultsObj.extensions.analyzer;
     var resolvers = analyzer.execution.resolvers;
 
 
-    var details = [].concat.apply([], resolvers.map(function (resolver) {
-      return resolver.details;
-    }));
+    var details = void 0;
+
+    var elasticSearch = resolvers[0].adapter === 'elasticsearch';
+    if (elasticSearch) {
+      var originalDetails = [].concat.apply([], resolvers.map(function (resolver) {
+        return resolver.details;
+      }));
+      details = originalDetails.map(function (detail) {
+        var payload = detail.payload;
+        var name = payload.name,
+            klass = payload.klass,
+            search = payload.search;
+        var index = search.index,
+            type = search.type,
+            q = search.q;
+
+        return {
+          id: detail.name + " - " + detail.id,
+          name: name,
+          klass: klass,
+          'search.index': index.join(", "),
+          'search.type': type.join(", "),
+          'search.query': q
+        };
+      });
+    } else {
+      details = [].concat.apply([], resolvers.map(function (resolver) {
+        return resolver.details;
+      }));
+    }
+
+    var getHeaderTitle = function getHeaderTitle(props) {
+      if (props.original.root) {
+        return props.original.root;
+      }
+      if (props.original.id && props.original.id.includes('elasticsearch')) {
+        return "" + props.original.id;
+      }
+      return '';
+    };
 
     if (!analyzer) {
       return React.createElement(
@@ -26535,6 +26595,7 @@ var queryDetails = function queryDetails(results) {
         )
       );
     } else {
+
       var columns = [{
         Header: "Queries",
         accessor: "id",
@@ -26542,7 +26603,7 @@ var queryDetails = function queryDetails(results) {
           return React.createElement(
             "span",
             null,
-            props.original.root
+            getHeaderTitle(props)
           );
         }
       }];
@@ -26564,10 +26625,12 @@ var queryDetails = function queryDetails(results) {
 
           var explained_queries = row.original.explained_queries;
 
-          var rowData = Object.keys(explained_queries[0]).map(function (key) {
+          var collapsedData = explained_queries ? explained_queries[0] : row.original;
+
+          var rowData = Object.keys(collapsedData).map(function (key) {
             return {
               details: key,
-              value: explained_queries[0][key]
+              value: collapsedData[key]
             };
           });
           return React.createElement(
@@ -26595,7 +26658,18 @@ var apolloTracing = function apolloTracing(results) {
   if (!results) {
     return;
   }
-  var resultsObj = JSON.parse(results);
+
+  var resultsObj = void 0;
+  try {
+    resultsObj = JSON.parse(results);
+  } catch (e) {
+    throw new Error('Error found in query');
+  }
+
+  if (resultsObj.errors) {
+    return 'Error found in query';
+  }
+
   if (resultsObj) {
 
     var tracing = resultsObj.extensions && resultsObj.extensions.tracing;
