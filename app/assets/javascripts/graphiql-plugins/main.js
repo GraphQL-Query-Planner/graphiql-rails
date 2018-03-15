@@ -26689,6 +26689,7 @@ var apolloTracing = function apolloTracing(results) {
     var durationData = resolvers.map(function (resolver) {
       return formatToMS(resolver.duration);
     });
+    var displayTicks = labels.length > 30 ? false : true;
 
     var data = {
       labels: labels,
@@ -26720,9 +26721,7 @@ var apolloTracing = function apolloTracing(results) {
             display: true,
             labelString: "Duration"
           },
-          stacked: true,
-          barThickness: 10,
-          weight: 5
+          stacked: true
         }],
         yAxes: [{
           gridLines: {
@@ -26732,15 +26731,14 @@ var apolloTracing = function apolloTracing(results) {
             zeroLineWidth: 0
           },
           ticks: {
-            fontSize: 12
+            display: displayTicks,
+            fontSize: 11
           },
           scaleLabel: {
             display: true,
-            labelString: "Resolver Path"
+            labelString: "Resolver"
           },
-          weight: 5,
-          stacked: true,
-          barThickness: 10
+          stacked: true
         }]
       },
       legend: {
@@ -26748,12 +26746,15 @@ var apolloTracing = function apolloTracing(results) {
       }
     };
 
+    var style = {
+      margin: '25px'
+    };
     return React.createElement(
       "div",
       null,
       React.createElement(
         "div",
-        null,
+        { style: style },
         React.createElement(
           "span",
           null,
