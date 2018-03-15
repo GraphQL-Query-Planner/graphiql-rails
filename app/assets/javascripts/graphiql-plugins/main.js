@@ -26702,7 +26702,7 @@ var apolloTracing = function apolloTracing(results) {
       }, {
         data: durationData,
         backgroundColor: "#D64292",
-        label: "Duration (ms)"
+        label: "Time (ms)"
       }]
     };
 
@@ -26719,7 +26719,7 @@ var apolloTracing = function apolloTracing(results) {
           },
           scaleLabel: {
             display: true,
-            labelString: "Duration"
+            labelString: "Time (ms)"
           },
           stacked: true
         }],
@@ -26736,7 +26736,7 @@ var apolloTracing = function apolloTracing(results) {
           },
           scaleLabel: {
             display: true,
-            labelString: "Resolver"
+            labelString: "Resolvers"
           },
           stacked: true
         }]
@@ -26763,7 +26763,7 @@ var apolloTracing = function apolloTracing(results) {
             "b",
             null,
             " ",
-            "Duration:",
+            "Total Query Execution Time: ",
             " "
           ),
           " ",
